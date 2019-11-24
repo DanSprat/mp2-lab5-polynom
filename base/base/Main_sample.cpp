@@ -3,9 +3,19 @@
 
 #include "pch.h"
 #include <iostream>
-
+#include "polynom.h"
+#include <string>
+using namespace std;
+void foo( int a)
+{
+	a = 5;
+}
+using namespace std;
 int main()
 {
-    std::cout << "Hello World!\n"; 
+	string a;
+	polynom h;
+	getline(cin, a);
+	h.setPolynom(a);
 }
 
