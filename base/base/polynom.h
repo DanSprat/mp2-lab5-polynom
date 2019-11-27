@@ -6,10 +6,10 @@ class polynom
 	class Monom
 	{
 	public:
-		int c; // Коэффициент монома
-		int Exp; // Число соответсвующее степеням монома 
+		int c=0; // Коэффициент монома
+		int Exp=0; // Число соответсвующее степеням монома 
 	};
-	int MaxSize=100; // Максимальная степень полинома
+	int MaxSize=10; // Максимальная степень полинома
 	map <string, int> vars;
 	Link  <Monom> *poly;
 	string input;

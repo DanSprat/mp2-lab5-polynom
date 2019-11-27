@@ -86,31 +86,78 @@ void polynom::setPolynom(string & a)
 {
 	string proces;
 	string word;
-	string Number;
+	string tmp;
+	Monom Next;
+	string PreAbr;
+	
 	processing(a, proces);
 	for (stringstream is(proces); is >> word;)
 	{
-		bool IsPreWordAbr=0;
-		string PreAbr=0;
-		string PreWord=0;
-		Monom Next;
-		for (int i = 0; i < word.size(); i++)
+		bool WereAbr = 0;
+		int k = 0;
+		bool IsLastNumber=0;
+		while (k < word.size())
 		{
-			if (word[i] > 96 && word[i] < 123)
+			int i = k;
+			tmp.clear();
+			while (!(word[i] > 96 && word[i] < 123 ))
 			{
-				if (IsPreWordAbr)
-					Next.Exp +=pow(MaxSize,vars[PreWord]);
-				else
+				if (word[i] == 94)
+					i++;
+				else 
 				{
-					stringstream os;
-					os << PreWord;
-					int a;
-					os >> a;
-					Next.Exp += (a*pow(MaxSize,vars[PreAbr]));
+					tmp += a[i];
+					i++;
+					if (i >= word.size())
+					{
+						IsLastNumber = 1;
+						break;
+					}
+				}
+			}
+			stringstream os;
+			os << tmp;
+			int a;
+			os >> a;
+			if (!WereAbr)
+			{
+				if (i != 0)
+				{
+					Next.c = a;
 					
 				}
-				PreWord = word[i];
-				PreAbr = word[i];
+			}
+			else
+			{
+				if (i != 0) 
+				{
+					if (tmp.size() == 0)
+						Next.Exp += pow(MaxSize, vars[PreAbr]);
+					else
+						Next.Exp += a * pow(MaxSize, vars[PreAbr]);
+				}
+				a = 0;
+			}
+			PreAbr = word[i];
+			WereAbr = 1;
+			if (i >= word.size()-1 && IsLastNumber==0)
+			{
+				Next.Exp += pow(MaxSize, vars[PreAbr]);
+			}
+			
+
+			k = i;
+			k++;
+			
+		}
+		if (poly == nullptr)
+			poly = new Node(Next, nullptr);
+		else
+		{
+			Node temp = poly;
+			while (poly->pNext != 0)
+			{
+
 			}
 		}
 	}
