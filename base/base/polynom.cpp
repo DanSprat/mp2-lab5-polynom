@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "polynom.h"
 #include <vector>
-#include <map>
+
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -9,18 +9,22 @@ using namespace std;
 void polynom::processing(string & a,string &proces)
 {
 	char PreLetter=0;
-	map <char,int> vars;
-	int NumberOfVars;
+	map <string, int> ::iterator it;
 	string search;
+	string s;
 	for (int i = 0; i < a.size(); i++)
 	{
 		if (!(a[i] > 96 && a[i] < 123 || a[i] == 43 ||a[i]==45 || a[i] == 94 || a[i]>47 && a[i]<57 || a[i]==' ' ))
 			throw 1;
 		if (a[i] > 96 && a[i] < 123)
 		{
-			if (search.find(a[i]) == std::string::npos)
-				search += a[i];
+			s = a[i];
+			if (search.find(s) == std::string::npos)
+				search += s;
 			else throw 1;
+			it = vars.find(s);
+			if (it == vars.end())
+				vars.insert(make_pair(s, vars.size()));
 			if (PreLetter == 94)
 				throw 1;
 			proces += a[i];
@@ -80,9 +84,36 @@ void polynom::processing(string & a,string &proces)
 
 void polynom::setPolynom(string & a)
 {
-
 	string proces;
-	processing(a,proces);
+	string word;
+	string Number;
+	processing(a, proces);
+	for (stringstream is(proces); is >> word;)
+	{
+		bool IsPreWordAbr=0;
+		string PreAbr=0;
+		string PreWord=0;
+		Monom Next;
+		for (int i = 0; i < word.size(); i++)
+		{
+			if (word[i] > 96 && word[i] < 123)
+			{
+				if (IsPreWordAbr)
+					Next.Exp +=pow(MaxSize,vars[PreWord]);
+				else
+				{
+					stringstream os;
+					os << PreWord;
+					int a;
+					os >> a;
+					Next.Exp += (a*pow(MaxSize,vars[PreAbr]));
+					
+				}
+				PreWord = word[i];
+				PreAbr = word[i];
+			}
+		}
+	}
 	cout << proces;
 }
 
