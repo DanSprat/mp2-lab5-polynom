@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "polynom.h"
 #include <vector>
-
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -87,12 +86,12 @@ void polynom::setPolynom(string & a)
 	string proces;
 	string word;
 	string tmp;
-	Monom Next;
 	string PreAbr;
 	
 	processing(a, proces);
 	for (stringstream is(proces); is >> word;)
 	{
+		Monom Next;
 		bool WereAbr = 0;
 		int k = 0;
 		bool IsLastNumber=0;
@@ -106,7 +105,7 @@ void polynom::setPolynom(string & a)
 					i++;
 				else 
 				{
-					tmp += a[i];
+					tmp += word[i];
 					i++;
 					if (i >= word.size())
 					{
@@ -150,18 +149,41 @@ void polynom::setPolynom(string & a)
 			k++;
 			
 		}
+		
 		if (poly == nullptr)
-			poly = new Node(Next, nullptr);
+		{
+			poly = new Link(Next, poly);
+			poly->pNext = poly;
+		}
 		else
 		{
-			Node temp = poly;
-			while (poly->pNext != 0)
+			Link *temp = poly;
+			Link *PreTemp = poly;
+			while (temp->pNext != poly)
 			{
+				if (Next.Exp < temp->data.Exp)
+				{
+					PreTemp = temp;
+					temp = temp->pNext;
+				}
+				else break;
+		    }
+			
+				if (Next.Exp < temp->data.Exp)
+				{
+					PreTemp = new Link(Next, poly->pNext);
+				}
+				else
+				{
+					PreTemp = new Link(Next);
+					PreTemp->pNext = poly;
+					poly->pNext = PreTemp;
+					poly = PreTemp;
 
-			}
+				}
 		}
+		
 	}
-	cout << proces;
 }
 
 polynom::polynom()

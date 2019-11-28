@@ -1,6 +1,9 @@
-﻿  Main_sample.cpp
-  polynom.cpp
-c:\users\work\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(15): warning C4018: <: несоответствие типов со знаком и без знака
-c:\users\work\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(13): warning C4101: NumberOfVars: неиспользованная локальная переменная
-  Создание кода...
-  base.vcxproj -> C:\Users\Work\source\repos\mp2-lab5-polynom\base\Debug\base.exe
+﻿  polynom.cpp
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(14): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(98): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(110): warning C4018: >=: несоответствие типов со знаком и без знака
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(134): warning C4244: +=: преобразование "double" в "int", возможна потеря данных
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(136): warning C4244: +=: преобразование "double" в "int", возможна потеря данных
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(142): warning C4018: >=: несоответствие типов со знаком и без знака
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(144): warning C4244: +=: преобразование "double" в "int", возможна потеря данных
+  base.vcxproj -> C:\Users\Daunil\source\repos\mp2-lab5-polynom\base\Debug\base.exe
