@@ -87,7 +87,6 @@ void polynom::setPolynom(string & a)
 	string word;
 	string tmp;
 	string PreAbr;
-	
 	processing(a, proces);
 	for (stringstream is(proces); is >> word;)
 	{
@@ -115,6 +114,8 @@ void polynom::setPolynom(string & a)
 				}
 			}
 			stringstream os;
+			if (tmp == "-" || tmp == "+")
+				tmp += "1";
 			os << tmp;
 			int a;
 			os >> a;
@@ -122,6 +123,7 @@ void polynom::setPolynom(string & a)
 			{
 				if (i != 0)
 				{
+					
 					Next.c = a;
 					
 				}
@@ -143,44 +145,25 @@ void polynom::setPolynom(string & a)
 			{
 				Next.Exp += pow(MaxSize, vars[PreAbr]);
 			}
-			
-
 			k = i;
 			k++;
 			
 		}
-		
-		if (poly == nullptr)
+		/*if (poly == nullptr)
 		{
 			poly = new Link(Next, poly);
 			poly->pNext = poly;
 		}
-		else
+		else*/
 		{
-			Link *temp = poly;
+			Link *temp = poly->pNext;
 			Link *PreTemp = poly;
-			while (temp->pNext != poly)
-			{
-				if (Next.Exp < temp->data.Exp)
-				{
+			while (Next.Exp < temp->data.Exp)
+			{	
 					PreTemp = temp;
-					temp = temp->pNext;
-				}
-				else break;
+					temp = temp->pNext;	
 		    }
-			
-				if (Next.Exp < temp->data.Exp)
-				{
-					PreTemp = new Link(Next, poly->pNext);
-				}
-				else
-				{
-					PreTemp = new Link(Next);
-					PreTemp->pNext = poly;
-					poly->pNext = PreTemp;
-					poly = PreTemp;
-
-				}
+			PreTemp->pNext = new Link(Next, temp);	
 		}
 		
 	}
@@ -188,6 +171,9 @@ void polynom::setPolynom(string & a)
 
 polynom::polynom()
 {
+	Monom a = { 0,-1 };
+	poly = new Link(a);
+	poly->pNext = poly;
 }
 
 
