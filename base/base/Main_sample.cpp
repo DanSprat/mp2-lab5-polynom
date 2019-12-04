@@ -13,9 +13,20 @@ void foo( int a)
 using namespace std;
 int main()
 {
-	string a;
-	polynom h;
+	setlocale(LC_ALL, "Russian");
+	string a,b;
+	polynom h, g,j;
+	cout << "Введите первый полином:";
 	getline(cin, a);
 	h.setPolynom(a);
+	cout << "Введите второй полином:";
+	getline(cin, b);
+	g.setPolynom(b);
+	cout << "Polynoms: " << endl;
+	cout << h << endl;
+	cout << g << endl;
+	cout << "Сумма полиномов " << g + h << endl;
+	cout << "Интеграл по x первого полинома" << h.IntegralBy('x')<<endl;
+	cout << "Производная по x второго полинома " << g.DerivativeBy('x') << endl;
 }
 
