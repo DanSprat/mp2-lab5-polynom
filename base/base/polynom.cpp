@@ -132,7 +132,7 @@ polynom polynom::IntegralBy(char c)
 		int Coeff = t;
 		if (t != MaxSize-1)
 		{
-			current->pNext = new Link({ help->data.c/(Coeff+1),p + static_cast<int>(pow(MaxSize,122 - c)) }, temp.poly);
+			current->pNext = new Link({ {help->data.c / (Coeff + 1)},p + static_cast<int>(pow(MaxSize,122 - c)) }, temp.poly);
 		}
 		help = help->pNext;
 		current = current->pNext;
@@ -157,7 +157,7 @@ const polynom polynom::operator+(const polynom & a)
 	{
 		if (Max->data.Exp == Min->data.Exp)
 		{
-			if (Max->data.c != -Min->data.c)
+			if (Max->data.c != -(1)*Min->data.c)
 			{
 				b.c = Max->data.c + Min->data.c;
 				b.Exp = Max->data.Exp;
@@ -195,7 +195,7 @@ polynom & polynom::operator+=(const polynom & a)
 		while (tmp->pNext->data.Exp > tmpa->data.Exp)
 			tmp = tmp->pNext;
 		if (tmp->data.Exp == tmpa->data.Exp)
-			if (!(tmp->data.c == -tmp->data.c))
+			if (!(tmp->data.c == (-1)*tmp->data.c))
 				tmp->pNext = new Link({ tmpa->data.c + tmp->data.c,tmpa->data.Exp }, tmp->pNext);
 		tmp->pNext = new Link({ tmpa->data.c,tmpa->data.Exp }, tmp->pNext);
 		tmpa = tmpa->pNext;
@@ -266,7 +266,8 @@ void polynom::setPolynom(string & a)
 	processing(a, proces);
 	for (stringstream is(proces); is >> word;)
 	{
-		Monom Next;
+		Monom Next(word, MaxSize);
+		/*Monom Next;
 		bool WereAbr = 0;
 		int k = 0;
 		bool IsLastNumber=0;
@@ -299,9 +300,7 @@ void polynom::setPolynom(string & a)
 			{
 				if (i != 0)
 				{
-					
-					Next.c = a;
-					
+					Next.c.numer = a;	
 				}
 			}
 			else
@@ -324,7 +323,7 @@ void polynom::setPolynom(string & a)
 			k = i;
 			k++;
 			
-		}
+		}*/
 			Link *temp = poly->pNext;
 			Link *PreTemp = poly;
 			while (Next.Exp < temp->data.Exp)
@@ -355,7 +354,7 @@ polynom::polynom()
 
 polynom::polynom(const polynom & a)
 {
-	Monom b = { 0,-1 };
+	Monom b = {0,-1};
 	poly = new Link(b);
 	poly->pNext = poly;
 	Link *tmp = a.poly->pNext;
@@ -389,7 +388,6 @@ ostream & operator<<(ostream & os,const polynom &h)
 	vector<int> Exps;
 	while (z.poly->data.Exp>0)
 	{
-
 		Exps.clear();
 		if (z.poly->data.Exp > 0)
 		{
@@ -408,7 +406,8 @@ ostream & operator<<(ostream & os,const polynom &h)
 			i--;
 		}
 		Exps.push_back(temp);
-		if (z.poly->data.c != 1)
+		frac g(1);
+		if (z.poly->data.c != g)
 			cout << abs(z.poly->data.c);
 		i = 0;
 		while (i<3)
@@ -422,7 +421,7 @@ ostream & operator<<(ostream & os,const polynom &h)
 				{
 					cout << c;
 				}
-
+				
 			}
 			/*cout << c;
 			if (Exps[i] != 1)
@@ -433,4 +432,62 @@ ostream & operator<<(ostream & os,const polynom &h)
 		z.poly = z.poly->pNext;
 	}
 	return os;
+}
+
+polynom::Monom::Monom(string & a,int max):Monom()
+{
+	a += ' ';
+	bool WereSlash;
+	char PreAbr=0;
+	char PreLetter = 0;
+	bool WereAbr = 0;
+	bool IsPreAbr = 0;
+	string tmp;
+	for (auto it = a.begin(); it != a.end(); it++)
+	{
+		if (!(*it >=120 && *it <=122 || *it>=88 && *it<=90 || *it =='/'  ||*it ==' '))
+		{
+			tmp += *it;
+			IsPreAbr = 0;
+		}
+		else
+		{
+			if (!WereAbr)
+			{
+				if (tmp.find('/') == string::npos)
+				{
+					if (tmp.size() != 0)
+						c = atoi(tmp.c_str());
+					else
+						c = 1;
+					tmp.clear();
+				}
+				else
+				{
+					auto ot = tmp.find('/');
+					c = { atoi(tmp.substr(0,ot).c_str()),atoi(tmp.substr(ot+1,tmp.size()).c_str()) };
+				}
+				WereAbr = 1;
+			}
+			else
+			{
+				if (tmp.size()==0)
+				Exp += pow(max, 122 - PreAbr);
+				else
+				{
+					Exp += atoi(tmp.c_str())*pow(max, 122 - PreAbr);
+					tmp.clear();
+				}
+			}
+			PreAbr = *it;
+		}
+	}
+}
+
+polynom::Monom::Monom():c(0),Exp(0)
+{
+}
+
+polynom::Monom::Monom(const frac &a, long long int b):c(a),Exp(b)
+{
 }

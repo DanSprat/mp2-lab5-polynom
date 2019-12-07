@@ -5,6 +5,7 @@
 #include <iostream>
 #include "polynom.h"
 #include <string>
+#include "frac.h"
 using namespace std;
 void foo( int a)
 {
@@ -26,7 +27,7 @@ int main()
 	cout << h << endl;
 	cout << g << endl;
 	cout << "Сумма полиномов " << g + h << endl;
-	cout << "Интеграл по x первого полинома" << h.IntegralBy('x')<<endl;
+	cout << "Интеграл по x первого полинома " << h.IntegralBy('x')<<endl;
 	cout << "Производная по x второго полинома " << g.DerivativeBy('x') << endl;
 }
 

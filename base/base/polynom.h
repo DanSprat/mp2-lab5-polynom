@@ -1,12 +1,16 @@
 #pragma once
 #include "Tlist.h"
 #include <map>
+#include "frac.h"
 class polynom
 {
 	class Monom
 	{
 	public:
-	    double c=1; // Коэффициент монома
+		Monom(string &a,int max);
+		Monom();
+		Monom(const frac &a, long long int b);
+		frac c = {1,1}; // Коэффициент монома
 		long long int Exp=0; // Число соответсвующее степеням монома 
 	};
 	class Link
@@ -21,7 +25,7 @@ class polynom
 		}
 		~Link() {  }
 	};
-	int MaxSize=5; // Максимальная степень полинома
+	int MaxSize=10; // Максимальная степень полинома
 	Link *poly;
 	string input;
 	void processing(string &a,string &proces);

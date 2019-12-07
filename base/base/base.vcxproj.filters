@@ -24,6 +24,9 @@
     <ClInclude Include="polynom.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="frac.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -33,6 +36,9 @@
       <Filter>Main_sample</Filter>
     </ClCompile>
     <ClCompile Include="polynom.cpp">
+      <Filter>Main_sample</Filter>
+    </ClCompile>
+    <ClCompile Include="frac.cpp">
       <Filter>Main_sample</Filter>
     </ClCompile>
   </ItemGroup>

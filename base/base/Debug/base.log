@@ -1,4 +1,5 @@
-﻿  polynom.cpp
+﻿  Main_sample.cpp
+  polynom.cpp
 c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(13): warning C4018: <: несоответствие типов со знаком и без знака
 c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(104): warning C4244: =: преобразование "double" в "__int64", возможна потеря данных
 c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(107): warning C4244: инициализация: преобразование "__int64" в "int", возможна потеря данных
@@ -6,12 +7,11 @@ c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(129): warnin
 c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(132): warning C4244: инициализация: преобразование "__int64" в "int", возможна потеря данных
 c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(245): warning C4244: инициализация: преобразование "__int64" в "int", возможна потеря данных
 c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(246): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
-c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(273): warning C4018: <: несоответствие типов со знаком и без знака
-c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(285): warning C4018: >=: несоответствие типов со знаком и без знака
-c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(312): warning C4244: +=: преобразование "double" в "__int64", возможна потеря данных
-c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(314): warning C4244: +=: преобразование "double" в "__int64", возможна потеря данных
-c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(320): warning C4018: >=: несоответствие типов со знаком и без знака
-c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(322): warning C4244: +=: преобразование "double" в "__int64", возможна потеря данных
-c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(406): warning C4244: аргумент: преобразование "__int64" в "int", возможна потеря данных
-c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(410): warning C4244: аргумент: преобразование "__int64" в "const int", возможна потеря данных
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(265): warning C4101: PreAbr: неиспользованная локальная переменная
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(404): warning C4244: аргумент: преобразование "__int64" в "int", возможна потеря данных
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(408): warning C4244: аргумент: преобразование "__int64" в "const int", возможна потеря данных
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(475): warning C4244: +=: преобразование "double" в "__int64", возможна потеря данных
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(478): warning C4244: +=: преобразование "double" в "__int64", возможна потеря данных
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(440): warning C4101: WereSlash: неиспользованная локальная переменная
+  Создание кода...
   base.vcxproj -> C:\Users\Daunil\source\repos\mp2-lab5-polynom\base\Debug\base.exe
