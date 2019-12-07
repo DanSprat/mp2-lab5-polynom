@@ -26,10 +26,13 @@ class polynom
 		~Link() {  }
 	};
 	int MaxSize=10; // Максимальная степень полинома
+	int size = 3;
 	Link *poly;
 	string input;
+
 	void processing(string &a,string &proces);
 public:	
+	polynom& MergeSort(Link *&PreStart, Link *&start, int pluspos);
 	polynom();
 	polynom(const polynom &a);
 	~polynom();

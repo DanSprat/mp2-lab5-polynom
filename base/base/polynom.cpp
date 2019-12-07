@@ -5,6 +5,39 @@
 #include <iostream>
 #include <sstream>
 using namespace std;
+polynom & polynom::MergeSort(Link *&PreStart,Link *& start, int pos)
+{
+	if (pos == 1)
+	return *this;
+	if (pos == 2)
+	{
+	if (start->data.Exp < start->pNext->data.Exp)
+	{
+		Link *tmp = start;
+		PreStart->pNext = start->pNext;
+		start->pNext = tmp;
+	}
+	else
+	{
+		if (start->data.Exp == start->pNext->data.Exp)
+		{
+			if (start->data.c == (-1)*start->pNext->data.c)
+				start = start->pNext->pNext;
+			else
+			{
+				start->data.c += start->pNext->data.c;
+				start->pNext = start->pNext->pNext;
+			}
+		}
+	}
+	return *this;
+	}
+	else
+	{
+		MergeSort(PreStart,start,size/2);
+		MergeSort(PreStart,start,size - size/2);
+	}
+}
 void polynom::processing(string & a, string &proces)
 {
 	char PreLetter = 0;
@@ -343,6 +376,7 @@ void polynom::setPolynom(string & a)
 			else
 			PreTemp->pNext = new Link(Next, temp);	
 	}
+	MergeSort(poly, poly->pNext, 3);
 }
 
 polynom::polynom()
