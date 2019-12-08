@@ -26,7 +26,7 @@ class polynom
 		~Link() {  }
 	};
 	int MaxSize=10; // Максимальная степень полинома
-	int size = 3;
+	int size ;
 	Link *poly;
 	string input;
 

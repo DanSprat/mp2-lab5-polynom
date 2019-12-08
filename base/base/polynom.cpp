@@ -5,17 +5,26 @@
 #include <iostream>
 #include <sstream>
 using namespace std;
-polynom & polynom::MergeSort(Link *&PreStart,Link *& start, int pos)
+polynom & polynom::MergeSort(Link *&PS,Link *&s, int pos)
 {
+	Link *PreStart = PS;
+	Link *start = s;
 	if (pos == 1)
-	return *this;
+	{
+		PS = PS->pNext;
+		s = s->pNext;
+		return *this;
+	}
 	if (pos == 2)
 	{
 	if (start->data.Exp < start->pNext->data.Exp)
 	{
-		Link *tmp = start;
-		PreStart->pNext = start->pNext;
-		start->pNext = tmp;
+		Link *tmp = start->pNext;
+		PreStart->pNext = tmp;
+		start->pNext = tmp->pNext;
+		tmp->pNext = start;
+		PS = s;
+		s = s->pNext;
 	}
 	else
 	{
@@ -27,6 +36,8 @@ polynom & polynom::MergeSort(Link *&PreStart,Link *& start, int pos)
 			{
 				start->data.c += start->pNext->data.c;
 				start->pNext = start->pNext->pNext;
+				PreStart = start->pNext;
+				start = start->pNext->pNext;
 			}
 		}
 	}
@@ -34,8 +45,22 @@ polynom & polynom::MergeSort(Link *&PreStart,Link *& start, int pos)
 	}
 	else
 	{
-		MergeSort(PreStart,start,size/2);
-		MergeSort(PreStart,start,size - size/2);
+		Link * begin = start;
+		MergeSort(PreStart,start,pos/2);
+		Link *end = start;
+		MergeSort(PreStart,start,pos - pos/2);
+		int i = 0;
+		Link *tmpF = begin;
+		Link *tmpS = end;
+		if (tmpF->data.Exp )
+		while ( i < pos)
+		{
+			while (tmpF->data.Exp > tmpS->data.Exp)
+			{
+
+			}
+		}
+
 	}
 }
 void polynom::processing(string & a, string &proces)
@@ -297,6 +322,7 @@ void polynom::setPolynom(string & a)
 	string tmp;
 	char PreAbr;
 	processing(a, proces);
+	Link *temp = poly;
 	for (stringstream is(proces); is >> word;)
 	{
 		Monom Next(word, MaxSize);
@@ -357,7 +383,7 @@ void polynom::setPolynom(string & a)
 			k++;
 			
 		}*/
-			Link *temp = poly->pNext;
+			/*Link *temp = poly->pNext;
 			Link *PreTemp = poly;
 			while (Next.Exp < temp->data.Exp)
 			{	
@@ -374,13 +400,17 @@ void polynom::setPolynom(string & a)
 				}
 			}
 			else
-			PreTemp->pNext = new Link(Next, temp);	
+			PreTemp->pNext = new Link(Next, temp);	*/
+		temp->pNext = new Link(Next, poly);
+		temp = temp->pNext;
+		size++;
 	}
-	MergeSort(poly, poly->pNext, 3);
+	MergeSort(poly, poly->pNext, size);
 }
 
 polynom::polynom()
 {
+	size = 0;
 	Monom a = { 0,-1 };
 	poly = new Link(a);
 	poly->pNext = poly;

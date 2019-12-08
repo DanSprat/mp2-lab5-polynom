@@ -14,13 +14,6 @@ void foo( int a)
 using namespace std;
 int main()
 {
-	frac x, y, z;
-	x = { 1,2 };
-	y = { 2,1 };
-	cout << x + y;
-	cout << y - x;
-	cout << x * y;
-	cout << x / y;
 	setlocale(LC_ALL, "Russian");
 	string a,b;
 	polynom h, g,j;
