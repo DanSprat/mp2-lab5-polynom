@@ -63,6 +63,20 @@ polynom & polynom::MergeSort(Link *&PS,Link *&s, int pos)
 
 	}
 }
+void polynom::MergeOp(vector<polynom>& a, int b, int c)
+{
+	if (c - b == 1)
+		return;
+	if (c - b == 2)
+	{
+		a[b].Merge(a[c]);
+		return;
+	}
+	MergeOp(a, b, b + (c - b) / 2);
+	MergeOp(a, (c - b) / 2+1,c);
+	a[b].Merge(a[c]);
+	return;
+}
 void polynom::processing(string & a, string &proces)
 {
 	char PreLetter = 0;
@@ -147,6 +161,40 @@ void polynom::processing(string & a, string &proces)
 		PreLetter = a[i];
 	}
 }
+polynom& polynom::Merge(polynom & a)
+{
+	Link *tmpa = a.poly->pNext;
+	Link *tmp = poly;
+	if (tmpa == tmpa->pNext)
+		return *this;
+	while (tmpa != a.poly)
+	{
+		while (tmp->pNext->data.Exp > tmpa->data.Exp)
+			tmp = tmp->pNext;
+		if (tmp->pNext->data.Exp == tmpa->data.Exp)
+		{
+			if (!(tmp->pNext->data.c == (-1)*tmpa->data.c))
+			{
+				tmp->pNext->data.c += tmpa->data.c;
+			}
+			else
+			{
+				Link *fordel = tmp->pNext;
+				tmp->pNext = tmp->pNext->pNext;
+				delete fordel;
+			}
+		}
+		else
+		{
+			tmp->pNext = new Link({ tmpa->data.c,tmpa->data.Exp }, tmp->pNext);
+			tmp = tmp->pNext;
+		}
+		Link *fordel = tmpa;
+		tmpa = tmpa->pNext;
+		delete fordel;
+	}
+	return *this;
+}
 polynom polynom::DerivativeBy(char c)
 {
 	polynom temp;
@@ -196,6 +244,31 @@ polynom polynom::IntegralBy(char c)
 		current = current->pNext;
 	}
 	return temp;
+}
+polynom polynom::operator*(const polynom & a)
+{
+	vector <polynom> Smth;
+	Link *tmpa = a.poly->pNext;
+	Link *tmpThis = poly->pNext;
+	if (tmpa == a.poly || tmpThis == poly)
+	{
+		return polynom();
+	}
+	while (tmpThis != poly)
+	{
+		polynom b;
+		Link *tmpb = b.poly;
+		while (tmpa != a.poly)
+		{
+			tmpb->pNext = new Link({tmpa->data.c * tmpThis->data.c, tmpa->data.Exp + tmpa->data.Exp
+		},b.poly);
+			tmpa = tmpa->pNext;
+		}
+		Smth.push_back(b);
+		tmpThis = tmpThis->pNext;
+	}
+	MergeOp(Smth, 0, Smth.size()-1);
+	return Smth[0];
 }
 const polynom polynom::operator+(const polynom & a)
 {
@@ -252,12 +325,26 @@ polynom & polynom::operator+=(const polynom & a)
 	{
 		while (tmp->pNext->data.Exp > tmpa->data.Exp)
 			tmp = tmp->pNext;
-		if (tmp->data.Exp == tmpa->data.Exp)
-			if (!(tmp->data.c == (-1)*tmp->data.c))
-				tmp->pNext = new Link({ tmpa->data.c + tmp->data.c,tmpa->data.Exp }, tmp->pNext);
-		tmp->pNext = new Link({ tmpa->data.c,tmpa->data.Exp }, tmp->pNext);
+		if (tmp->pNext->data.Exp == tmpa->data.Exp)
+		{
+			if (!(tmp->pNext->data.c == (-1)*tmpa->data.c))
+			{
+				tmp->pNext->data.c += tmpa->data.c;
+				tmp = tmp->pNext;
+			}
+			else
+			{
+				Link *fordel = tmp->pNext;
+				tmp->pNext = tmp->pNext->pNext;
+				delete fordel;
+			}
+		}
+		else
+		{
+			tmp->pNext = new Link({ tmpa->data.c,tmpa->data.Exp }, tmp->pNext);
+			tmp = tmp->pNext;
+		}
 		tmpa = tmpa->pNext;
-		tmp = tmp->pNext;
 	}
 	return *this;
 }
@@ -383,7 +470,7 @@ void polynom::setPolynom(string & a)
 			k++;
 			
 		}*/
-			/*Link *temp = poly->pNext;
+			Link *temp = poly->pNext;
 			Link *PreTemp = poly;
 			while (Next.Exp < temp->data.Exp)
 			{	
@@ -397,15 +484,16 @@ void polynom::setPolynom(string & a)
 				{
 					PreTemp->pNext = temp->pNext;
 					delete temp;
+					size--;
 				}
 			}
 			else
-			PreTemp->pNext = new Link(Next, temp);	*/
-		temp->pNext = new Link(Next, poly);
-		temp = temp->pNext;
-		size++;
+			{
+				PreTemp->pNext = new Link(Next, temp);
+				size++;
+			}
 	}
-	MergeSort(poly, poly->pNext, size);
+	//MergeSort(poly, poly->pNext, size);
 }
 
 polynom::polynom()
@@ -520,10 +608,14 @@ polynom::Monom::Monom(string & a,int max):Monom()
 			{
 				if (tmp.find('/') == string::npos)
 				{
-					if (tmp.size() != 0)
+					if (tmp.size() > 1 )
 						c = atoi(tmp.c_str());
 					else
-						c = 1;
+					{
+						tmp.push_back('1');
+						int d = atoi(tmp.c_str());
+						c = d;
+					}
 					tmp.clear();
 				}
 				else

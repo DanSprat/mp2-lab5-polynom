@@ -2,6 +2,7 @@
 #include "Tlist.h"
 #include <map>
 #include "frac.h"
+#include <vector>
 class polynom
 {
 	class Monom
@@ -29,8 +30,9 @@ class polynom
 	int size ;
 	Link *poly;
 	string input;
-
+	void MergeOp(vector<polynom> &a,int b,int c);
 	void processing(string &a,string &proces);
+	polynom& Merge(polynom &a);
 public:	
 	polynom& MergeSort(Link *&PreStart, Link *&start, int pluspos);
 	polynom();
@@ -38,6 +40,7 @@ public:
 	~polynom();
 	polynom DerivativeBy(char c);
 	polynom IntegralBy(char c);
+	polynom operator* (const polynom &a);
 	const polynom operator+ (const polynom &a);
 	polynom& operator+=(const polynom &a); 
 	polynom& operator= (const polynom a);
