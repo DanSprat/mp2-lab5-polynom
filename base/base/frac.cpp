@@ -75,6 +75,13 @@ bool frac::operator>=(const frac & a)
 	return (b.numer >= 0);
 }
 
+frac & frac::operator=(int b)
+{
+	numer = b;
+	denumer = 1;
+	return *this;
+}
+
 frac & frac::operator=(const frac & a)
 {
 	numer = a.numer;

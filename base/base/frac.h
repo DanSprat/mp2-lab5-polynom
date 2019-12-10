@@ -17,6 +17,7 @@ public:
 	bool operator < (const frac& a);
 	bool operator <= (const frac& a);
 	bool operator >= (const frac& a);
+	frac& operator=(int b);
 	frac& operator= (const frac &a);
 	~frac();
 	friend frac operator-(int a, const frac&b);
@@ -44,6 +45,5 @@ public:
 	friend frac operator/=(frac &a, const frac &b);
 	friend frac abs(frac &a);
 	friend std::ostream &operator<<(std::ostream&, const frac &h);
-	
 };
 
