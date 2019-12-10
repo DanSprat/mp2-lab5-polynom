@@ -539,10 +539,10 @@ ostream & operator<<(ostream & os,const polynom &h)
 	z.poly = z.poly->pNext;
 	bool IsFirst=1;
 	vector<int> Exps;
-	while (z.poly->data.Exp>0)
+	while (z.poly->data.Exp>=0)
 	{
 		Exps.clear();
-		if (z.poly->data.Exp > 0)
+		if (z.poly->data.Exp >= 0)
 		{
 			if (!IsFirst)
 				cout << "+";
@@ -560,7 +560,7 @@ ostream & operator<<(ostream & os,const polynom &h)
 		}
 		Exps.push_back(temp);
 		frac g(1);
-		if (z.poly->data.c != g)
+		if (z.poly->data.c != g || z.poly->data.Exp ==0)
 			cout << abs(z.poly->data.c);
 		i = 0;
 		while (i<3)
