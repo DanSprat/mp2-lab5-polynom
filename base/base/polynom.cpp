@@ -1,4 +1,4 @@
-#include "pch.h"
+/*#include "pch.h"
 #include "polynom.h"
 #include <vector>
 #include <string>
@@ -69,12 +69,21 @@ void polynom::MergeOp(vector<polynom>& a, int b, int c)
 		return;
 	if (c - b == 2)
 	{
+<<<<<<< HEAD
 		a[b].Merge(a[b+1]);
 		return;
 	}
 	MergeOp(a, b, b + (c - b) / 2);
 	MergeOp(a,b+(c - b) / 2,c);
 	a[b].Merge(a[b + (c - b) / 2]);
+=======
+		a[b].Merge(a[c]);
+		return;
+	}
+	MergeOp(a, b, b + (c - b) / 2);
+	MergeOp(a, (c - b) / 2+1,c);
+	a[b].Merge(a[c]);
+>>>>>>> b16e23674dddc2a6620e3940de5535841a7ae67b
 	return;
 }
 void polynom::processing(string & a, string &proces)
@@ -191,8 +200,13 @@ polynom& polynom::Merge(polynom & a)
 		}
 		Link *fordel = tmpa;
 		tmpa = tmpa->pNext;
+<<<<<<< HEAD
 	}
 	a.poly->pNext = a.poly;
+=======
+		delete fordel;
+	}
+>>>>>>> b16e23674dddc2a6620e3940de5535841a7ae67b
 	return *this;
 }
 polynom polynom::DerivativeBy(char c)
@@ -260,6 +274,7 @@ polynom polynom::operator*(const polynom & a)
 		Link *tmpb = b.poly;
 		while (tmpa != a.poly)
 		{
+<<<<<<< HEAD
 			tmpb->pNext = new Link({tmpa->data.c * tmpThis->data.c, tmpThis->data.Exp + tmpa->data.Exp},b.poly);
 			tmpa = tmpa->pNext;
 			tmpb = tmpb->pNext;
@@ -270,6 +285,17 @@ polynom polynom::operator*(const polynom & a)
 	}
 	MergeOp(Smth, 0, Smth.size());
 	return (Smth[0]);
+=======
+			tmpb->pNext = new Link({tmpa->data.c * tmpThis->data.c, tmpa->data.Exp + tmpa->data.Exp
+		},b.poly);
+			tmpa = tmpa->pNext;
+		}
+		Smth.push_back(b);
+		tmpThis = tmpThis->pNext;
+	}
+	MergeOp(Smth, 0, Smth.size()-1);
+	return Smth[0];
+>>>>>>> b16e23674dddc2a6620e3940de5535841a7ae67b
 }
 const polynom polynom::operator+(const polynom & a)
 {
@@ -648,3 +674,4 @@ polynom::Monom::Monom():c(0),Exp(0)
 polynom::Monom::Monom(const frac &a, long long int b):c(a),Exp(b)
 {
 }
+*/
