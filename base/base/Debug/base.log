@@ -1,2 +1,16 @@
 ﻿  Main_sample.cpp
-  base.vcxproj -> C:\Users\Daunil\source\repos\mp2-lab5-polynom\base\Debug\base.exe
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\main_sample.cpp(8): fatal error C1083: Не удается открыть файл включение: frac.h: No such file or directory,
+  polynom.cpp
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(27): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(154): warning C4244: =: преобразование "double" в "__int64", возможна потеря данных
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(157): warning C4244: инициализация: преобразование "__int64" в "int", возможна потеря данных
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(179): warning C4244: =: преобразование "double" в "__int64", возможна потеря данных
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(182): warning C4244: инициализация: преобразование "__int64" в "int", возможна потеря данных
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(435): warning C4244: инициализация: преобразование "__int64" в "int", возможна потеря данных
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(436): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(455): warning C4101: PreAbr: неиспользованная локальная переменная
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(555): warning C4244: аргумент: преобразование "__int64" в "int", возможна потеря данных
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(559): warning C4244: аргумент: преобразование "__int64" в "const int", возможна потеря данных
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(646): warning C4244: +=: преобразование "double" в "__int64", возможна потеря данных
+c:\users\daunil\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(649): warning C4244: +=: преобразование "double" в "__int64", возможна потеря данных
+  Создание кода...

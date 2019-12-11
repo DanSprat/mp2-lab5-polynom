@@ -1,11 +1,9 @@
 ﻿// base.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 //
-
 #include "pch.h"
 #include <iostream>
 #include "polynom.h"
 #include <string>
-#include "frac.h"
 using namespace std;
 void foo( int a)
 {
@@ -27,7 +25,7 @@ int main()
 	cout << h << endl;
 	cout << g << endl;
 	h == g;
-	cout << "Сумма полиномов " << g+h << endl;
+	cout << "Сумма полиномов " << g-h << endl;
 	cout << "Интеграл по x первого полинома " << h.IntegralBy('x')<<endl;
 	cout << "Производная по x второго полинома " << g.DerivativeBy('x') << endl;
 	cout << "Произведение полиномов " << h*g << endl;
