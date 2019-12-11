@@ -1,8 +1,9 @@
 #pragma once
-#include "Tlist.h"
+#include "pch.h"
+#include <iostream>
 #include <map>
-#include "frac.h"
 #include <vector>
+using namespace std;
 class polynom
 {
 	class Monom
@@ -34,7 +35,6 @@ class polynom
 	void processing(string &a,string &proces);
 	polynom& Merge(polynom &a);
 public:	
-	polynom& MergeSort(Link *&PreStart, Link *&start, int pluspos);
 	polynom();
 	polynom(const polynom &a);
 	~polynom();

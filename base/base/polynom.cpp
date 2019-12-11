@@ -5,64 +5,6 @@
 #include <iostream>
 #include <sstream>
 using namespace std;
-polynom & polynom::MergeSort(Link *&PS,Link *&s, int pos)
-{
-	Link *PreStart = PS;
-	Link *start = s;
-	if (pos == 1)
-	{
-		PS = PS->pNext;
-		s = s->pNext;
-		return *this;
-	}
-	if (pos == 2)
-	{
-	if (start->data.Exp < start->pNext->data.Exp)
-	{
-		Link *tmp = start->pNext;
-		PreStart->pNext = tmp;
-		start->pNext = tmp->pNext;
-		tmp->pNext = start;
-		PS = s;
-		s = s->pNext;
-	}
-	else
-	{
-		if (start->data.Exp == start->pNext->data.Exp)
-		{
-			if (start->data.c == (-1)*start->pNext->data.c)
-				start = start->pNext->pNext;
-			else
-			{
-				start->data.c += start->pNext->data.c;
-				start->pNext = start->pNext->pNext;
-				PreStart = start->pNext;
-				start = start->pNext->pNext;
-			}
-		}
-	}
-	return *this;
-	}
-	else
-	{
-		Link * begin = start;
-		MergeSort(PreStart,start,pos/2);
-		Link *end = start;
-		MergeSort(PreStart,start,pos - pos/2);
-		int i = 0;
-		Link *tmpF = begin;
-		Link *tmpS = end;
-		if (tmpF->data.Exp )
-		while ( i < pos)
-		{
-			while (tmpF->data.Exp > tmpS->data.Exp)
-			{
-
-			}
-		}
-
-	}
-}
 void polynom::MergeOp(vector<polynom>& a, int b, int c)
 {
 	if (c - b == 1)
@@ -84,10 +26,12 @@ void polynom::processing(string & a, string &proces)
 	string s;
 	for (int i = 0; i < a.size(); ++i)
 	{
-		if (!(a[i] >= 120 && a[i] <= 122 || a[i] == 43 || a[i] == 45 || a[i] == 94 || a[i]>47 && a[i]<57 || a[i] == ' '))
+		if (!(a[i] >= 120 && a[i] <= 122 || a[i] == 43 || a[i] == 45 || a[i] == 94 || a[i]>47 && a[i]<57 || a[i] == ' ' || a[i]>=88 && a[i]<=90))
 			throw 1;
-		if (a[i] <= 122 && a[i] >= 120)
+		if (a[i] <= 122 && a[i] >= 120 || (a[i] >= 88 && a[i] <= 90))
 		{
+			if (a[i] >= 88 && a[i] <= 90)
+				a[i] += 32;
 			s = a[i];
 			if (search.find(s) == std::string::npos)
 				search += s;
@@ -152,7 +96,7 @@ void polynom::processing(string & a, string &proces)
 						{
 							if (!(PreLetter >= 120 && PreLetter <= 122))
 								throw 1;
-							proces += a[i];
+							//proces += a[i];
 						}
 					}
 				}
@@ -493,87 +437,32 @@ void polynom::setPolynom(string & a)
 	for (stringstream is(proces); is >> word;)
 	{
 		Monom Next(word, MaxSize);
-		/*Monom Next;
-		bool WereAbr = 0;
-		int k = 0;
-		bool IsLastNumber=0;
-		while (k < word.size())
-		{
-			int i = k;
-			tmp.clear();
-			while (!(word[i] > 96 && word[i] < 123 ))
-			{
-				if (word[i] == 94)
-					i++;
-				else 
-				{
-					tmp += word[i];
-					i++;
-					if (i >= word.size())
-					{
-						IsLastNumber = 1;
-						break;
-					}
-				}
-			}
-			stringstream os;
-			if (tmp == "-" || tmp == "+")
-				tmp += "1";
-			os << tmp;
-			int a;
-			os >> a;
-			if (!WereAbr)
-			{
-				if (i != 0)
-				{
-					Next.c.numer = a;	
-				}
-			}
-			else
-			{
-				if (i != 0) 
-				{
-					if (tmp.size() == 0)
-						Next.Exp += pow(MaxSize,122 - PreAbr );
-					else
-						Next.Exp += a * pow(MaxSize, 122-PreAbr);
-				}
-				a = 0;
-			}
-			PreAbr = word[i];
-			WereAbr = 1;
-			if (i >= word.size()-1 && IsLastNumber==0)
-			{
-				Next.Exp += pow(MaxSize, 122-PreAbr);
-			}
-			k = i;
-			k++;
-			
-		}*/
 			Link *temp = poly->pNext;
 			Link *PreTemp = poly;
-			while (Next.Exp < temp->data.Exp)
-			{	
-					PreTemp = temp;
-					temp = temp->pNext;	
-		    }
-			if (Next.Exp == temp->data.Exp)
+			if (Next.c != 0)
 			{
-				temp->data.c += Next.c;
-				if (temp->data.c == 0)
+				while (Next.Exp < temp->data.Exp)
 				{
-					PreTemp->pNext = temp->pNext;
-					delete temp;
-					size--;
+					PreTemp = temp;
+					temp = temp->pNext;
+				}
+				if (Next.Exp == temp->data.Exp)
+				{
+					temp->data.c += Next.c;
+					if (temp->data.c == 0)
+					{
+						PreTemp->pNext = temp->pNext;
+						delete temp;
+						size--;
+					}
+				}
+				else
+				{
+					PreTemp->pNext = new Link(Next, temp);
+					size++;
 				}
 			}
-			else
-			{
-				PreTemp->pNext = new Link(Next, temp);
-				size++;
-			}
 	}
-	//MergeSort(poly, poly->pNext, size);
 }
 
 polynom::polynom()
@@ -616,18 +505,20 @@ ostream & operator<<(ostream & os,const polynom &h)
 {
 	polynom z(h);
 	z.poly = z.poly->pNext;
+	if (z.poly == z.poly->pNext)
+		os << z.poly->data.c;
 	bool IsFirst=1;
 	vector<int> Exps;
 	while (z.poly->data.Exp>=0)
 	{
 		Exps.clear();
-		if (z.poly->data.Exp >= 0)
+		if (z.poly->data.c >= 0)
 		{
 			if (!IsFirst)
-				cout << "+";
+				os << "+";
 		}
 		else
-			cout << "-";
+			os << "-";
 		IsFirst = 0;
 		long long int temp = z.poly->data.Exp;
 		int i = 2;
@@ -638,7 +529,7 @@ ostream & operator<<(ostream & os,const polynom &h)
 			i--;
 		}
 		Exps.push_back(temp);
-		if (z.poly->data.c !=1 || z.poly->data.Exp ==0)
+		if (abs(z.poly->data.c) !=1 || z.poly->data.Exp ==0)
 			cout << abs(z.poly->data.c);
 		i = 0;
 		while (i<3)
@@ -651,13 +542,8 @@ ostream & operator<<(ostream & os,const polynom &h)
 				else
 				{
 					cout << c;
-				}
-				
+				}	
 			}
-			/*cout << c;
-			if (Exps[i] != 1)
-				cout << Exps[i++];
-			else i++;*/
 			i++;
 		}
 		z.poly = z.poly->pNext;
@@ -668,7 +554,6 @@ ostream & operator<<(ostream & os,const polynom &h)
 polynom::Monom::Monom(string & a,int max):Monom()
 {
 	a += ' ';
-	bool WereSlash;
 	char PreAbr=0;
 	char PreLetter = 0;
 	bool WereAbr = 0;

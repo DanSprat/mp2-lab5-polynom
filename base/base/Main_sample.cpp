@@ -30,6 +30,5 @@ int main()
 	cout << "Интеграл по x первого полинома " << h.IntegralBy('x')<<endl;
 	cout << "Производная по x второго полинома " << g.DerivativeBy('x') << endl;
 	cout << "Произведение полиномов " << h*g << endl;
-
 }
 
