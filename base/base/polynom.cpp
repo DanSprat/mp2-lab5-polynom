@@ -373,8 +373,10 @@ polynom & polynom::operator+=(const polynom & a)
 	return *this;
 }
 
-polynom & polynom::operator=(const polynom  a)
+polynom & polynom::operator=(const polynom  &a)
 {
+	if (this == &a)
+		return *this;
 	Link *tmp = poly->pNext;
 	while (tmp != poly)
 	{

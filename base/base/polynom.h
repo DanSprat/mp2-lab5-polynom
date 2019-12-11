@@ -50,7 +50,7 @@ public:
 	polynom operator* (const polynom &a);
 	polynom operator+ (const polynom &a);
 	polynom& operator+=(const polynom &a); 
-	polynom& operator= (const polynom a);
+	polynom& operator= (const polynom &a);
 	bool operator==(polynom &a);
 	bool operator!=(polynom &a);
 	double Calculate();
