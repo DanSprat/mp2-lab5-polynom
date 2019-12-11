@@ -21,7 +21,7 @@ int main()
 	getline(cin, a);
 	h.setPolynom(a);
 	cout << "Введите второй полином:";
-	getline(cin, b);
+    getline(cin, b);
 	g.setPolynom(b);
 	cout << "Polynoms: " << endl;
 	cout << h << endl;
@@ -29,6 +29,7 @@ int main()
 	cout << "Сумма полиномов " << g+h << endl;
 	cout << "Интеграл по x первого полинома " << h.IntegralBy('x')<<endl;
 	cout << "Производная по x второго полинома " << g.DerivativeBy('x') << endl;
-	cout << "Произведение полиномов " << h * g << endl;
+	cout << "Произведение полиномов " << h*g << endl;
+
 }
 

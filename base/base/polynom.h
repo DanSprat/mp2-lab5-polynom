@@ -10,8 +10,8 @@ class polynom
 	public:
 		Monom(string &a,int max);
 		Monom();
-		Monom(const frac &a, long long int b);
-		frac c = {1,1}; // Коэффициент монома
+		Monom(double a, long long int b);
+		double c; // Коэффициент монома
 		long long int Exp=0; // Число соответсвующее степеням монома 
 	};
 	class Link
@@ -40,8 +40,14 @@ public:
 	~polynom();
 	polynom DerivativeBy(char c);
 	polynom IntegralBy(char c);
+	polynom operator-() const;
+	polynom& operator-=(const polynom &a);
+	polynom operator-(const polynom &a);
+	polynom& operator *=(const polynom &a);
+	polynom& operator *= (double b);
+	polynom operator* (double b);
 	polynom operator* (const polynom &a);
-	const polynom operator+ (const polynom &a);
+	polynom operator+ (const polynom &a);
 	polynom& operator+=(const polynom &a); 
 	polynom& operator= (const polynom a);
 	double Calculate();

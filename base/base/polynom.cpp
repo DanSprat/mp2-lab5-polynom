@@ -245,9 +245,85 @@ polynom polynom::IntegralBy(char c)
 	}
 	return temp;
 }
+polynom polynom::operator-()const
+{
+	polynom temp;
+	Link *tmp =poly->pNext;
+	while (tmp != poly)
+	{
+		tmp->pNext = new Link({-tmp->data.c,-tmp->data.Exp},temp.poly);
+	}
+	return temp;
+}
+polynom & polynom::operator-=(const polynom & a)
+{
+	*this += -a;
+	return *this;
+}
+polynom polynom::operator-(const polynom & a)
+{
+	polynom b(a);
+	return (b -= a);
+}
+polynom & polynom::operator*=(const polynom & a)
+{
+	if (a.poly->pNext == a.poly || poly->pNext == poly)
+	{
+		while (poly->pNext != poly)
+		{
+			Link *del = poly->pNext;
+			poly->pNext = del->pNext;
+			delete del;
+		}
+		return *this;
+	}
+	polynom h;
+	h.poly = poly;
+	Monom c(0, -1);
+	poly = new Link(c);
+	poly->pNext = poly;
+	vector <polynom> Smth;
+	Link *tmpa = a.poly->pNext;
+	Link *tmpThis = h.poly->pNext;
+	while (tmpThis != h.poly)
+	{
+		polynom b;
+		Link *tmpb = b.poly;
+		while (tmpa != a.poly)
+		{
+			tmpb->pNext = new Link({ tmpa->data.c * tmpThis->data.c, tmpThis->data.Exp + tmpa->data.Exp }, b.poly);
+			tmpa = tmpa->pNext;
+			tmpb = tmpb->pNext;
+		}
+		Smth.push_back(b);
+		tmpThis = tmpThis->pNext;
+		tmpa = tmpa->pNext;
+	}
+	MergeOp(Smth, 0, Smth.size());
+	poly = Smth[0].poly;
+	Smth[0].poly = new Link(c);
+	Smth[0].poly->pNext = Smth[0].poly;
+	return *this;
+}
+polynom& polynom::operator*=(double d)
+{
+	Link *temp = poly->pNext;
+	while (temp != poly)
+	{
+		temp->data.c *= d;
+		temp = temp->pNext;
+	}
+	return *this;
+}
+polynom polynom::operator*(double d)
+{
+	polynom b(*this);
+	b *= d;
+	return b;
+}
 polynom polynom::operator*(const polynom & a)
 {
-	vector <polynom> Smth;
+	/*vector <polynom> Smth;
 	Link *tmpa = a.poly->pNext;
 	Link *tmpThis = poly->pNext;
 	if (tmpa == a.poly || tmpThis == poly)
@@ -269,9 +345,12 @@ polynom polynom::operator*(const polynom & a)
 		tmpa = tmpa->pNext;
 	}
 	MergeOp(Smth, 0, Smth.size());
-	return (Smth[0]);
+	return (Smth[0]);*/
+	polynom c(*this);
+	c *= a;
+	return c;
 }
-const polynom polynom::operator+(const polynom & a)
+polynom polynom::operator+(const polynom & a)
 {
 	polynom temp;
 	Link *Max = this->poly->pNext;
@@ -559,8 +638,7 @@ ostream & operator<<(ostream & os,const polynom &h)
 			i--;
 		}
 		Exps.push_back(temp);
-		frac g(1);
-		if (z.poly->data.c != g || z.poly->data.Exp ==0)
+		if (z.poly->data.c !=1 || z.poly->data.Exp ==0)
 			cout << abs(z.poly->data.c);
 		i = 0;
 		while (i<3)
@@ -606,24 +684,24 @@ polynom::Monom::Monom(string & a,int max):Monom()
 		else
 		{
 			if (!WereAbr)
-			{
-				if (tmp.find('/') == string::npos)
-				{
+			{	
 					if (tmp.size() > 1 )
 						c = atoi(tmp.c_str());
 					else
 					{
-						tmp.push_back('1');
-						int d = atoi(tmp.c_str());
-						c = d;
+						if (tmp == "+" || tmp == "-")
+						{
+							tmp.push_back('1');
+							c = atoi(tmp.c_str());
+						}
+						else
+							if (tmp.size() == 0)
+								c = 1;
+							else
+							c = atoi(tmp.c_str());
 					}
 					tmp.clear();
-				}
-				else
-				{
-					auto ot = tmp.find('/');
-					c = { atoi(tmp.substr(0,ot).c_str()),atoi(tmp.substr(ot+1,tmp.size()).c_str()) };
-				}
+		
 				WereAbr = 1;
 			}
 			else
@@ -645,6 +723,6 @@ polynom::Monom::Monom():c(0),Exp(0)
 {
 }
 
-polynom::Monom::Monom(const frac &a, long long int b):c(a),Exp(b)
+polynom::Monom::Monom(double a, long long int b):c(a),Exp(b)
 {
 }
