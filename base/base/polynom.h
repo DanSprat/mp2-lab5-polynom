@@ -38,6 +38,7 @@ public:
 	polynom();
 	polynom(const polynom &a);
 	~polynom();
+	void setsize(int c);
 	polynom DerivativeBy(char c);
 	polynom IntegralBy(char c);
 	polynom operator-() const;
@@ -50,6 +51,8 @@ public:
 	polynom operator+ (const polynom &a);
 	polynom& operator+=(const polynom &a); 
 	polynom& operator= (const polynom a);
+	bool operator==(polynom &a);
+	bool operator!=(polynom &a);
 	double Calculate();
 	void setPolynom(string &a);
 	friend ostream& operator<<(ostream &os,const polynom &h);

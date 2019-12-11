@@ -1,22 +1,2 @@
-﻿  polynom.cpp
-c:\users\work\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(27): warning C4018: <: несоответствие типов со знаком и без знака
-c:\users\work\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(154): warning C4244: =: преобразование "double" в "__int64", возможна потеря данных
-c:\users\work\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(157): warning C4244: инициализация: преобразование "__int64" в "int", возможна потеря данных
-c:\users\work\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(179): warning C4244: =: преобразование "double" в "__int64", возможна потеря данных
-c:\users\work\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(182): warning C4244: инициализация: преобразование "__int64" в "int", возможна потеря данных
-c:\users\work\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(414): warning C4244: инициализация: преобразование "__int64" в "int", возможна потеря данных
-c:\users\work\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(415): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
-c:\users\work\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(434): warning C4101: PreAbr: неиспользованная локальная переменная
-c:\users\work\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(527): warning C4244: аргумент: преобразование "__int64" в "_Ty", возможна потеря данных
-          with
-          [
-              _Ty=int
-          ]
-c:\users\work\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(531): warning C4244: аргумент: преобразование "__int64" в "const _Ty", возможна потеря данных
-          with
-          [
-              _Ty=int
-          ]
-c:\users\work\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(595): warning C4244: +=: преобразование "double" в "__int64", возможна потеря данных
-c:\users\work\source\repos\mp2-lab5-polynom\base\base\polynom.cpp(598): warning C4244: +=: преобразование "double" в "__int64", возможна потеря данных
-  base.vcxproj -> C:\Users\Work\source\repos\mp2-lab5-polynom\base\Debug\base.exe
+﻿  Main_sample.cpp
+  base.vcxproj -> C:\Users\Daunil\source\repos\mp2-lab5-polynom\base\Debug\base.exe

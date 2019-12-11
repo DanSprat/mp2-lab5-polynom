@@ -26,7 +26,7 @@ void polynom::processing(string & a, string &proces)
 	string s;
 	for (int i = 0; i < a.size(); ++i)
 	{
-		if (!(a[i] >= 120 && a[i] <= 122 || a[i] == 43 || a[i] == 45 || a[i] == 94 || a[i]>47 && a[i]<57 || a[i] == ' ' || a[i]>=88 && a[i]<=90))
+		if (!(a[i] >= 120 && a[i] <= 122 || a[i] == 43 || a[i] == 45 || a[i] == 94 || a[i]>47 && a[i]<57 || a[i] == ' ' || a[i]>=88 && a[i]<=90 || a[i]=='.'))
 			throw 1;
 		if (a[i] <= 122 && a[i] >= 120 || (a[i] >= 88 && a[i] <= 90))
 		{
@@ -36,16 +36,16 @@ void polynom::processing(string & a, string &proces)
 			if (search.find(s) == std::string::npos)
 				search += s;
 			else throw 1;
-			if (PreLetter == 94)
+			if (PreLetter == 94 || PreLetter== '.')
 				throw 1;
 			proces += a[i];
 		}
 		else
 		{
-			if (a[i] > 47 && a[i] < 57)
+			if (a[i] > 47 && a[i] < 57 || a[i] == '.')
 			{
 				string Number;
-				while (a[i] > 47 && a[i] < 57)
+				while (a[i] > 47 && a[i] < 57 || a[i] == '.')
 				{
 					Number += a[i];
 					i++;
@@ -54,8 +54,6 @@ void polynom::processing(string & a, string &proces)
 				is << Number;
 				int a;
 				is >> a;
-				if (a > MaxSize)
-					throw 1;
 				proces += Number;
 				i--;
 			}
@@ -84,7 +82,7 @@ void polynom::processing(string & a, string &proces)
 				{
 					if (a[i] == 43 || a[i] == 45)
 					{
-						if (PreLetter == 43 || PreLetter == 45 || PreLetter == 94)
+						if (PreLetter == 43 || PreLetter == 45 || PreLetter == 94 || PreLetter == '.')
 							throw 1;
 						proces += ' ';
 						proces += a[i];
@@ -104,6 +102,8 @@ void polynom::processing(string & a, string &proces)
 		}
 		PreLetter = a[i];
 	}
+	if (PreLetter == '-' || PreLetter == '+' || PreLetter == '.' || PreLetter == '^' )
+		throw 1;
 }
 polynom& polynom::Merge(polynom & a)
 {
@@ -393,6 +393,25 @@ polynom & polynom::operator=(const polynom  a)
 	return *this;
 }
 
+bool polynom::operator==(polynom &a)
+{
+	Link *temp = poly->pNext;
+	Link *temp2 = a.poly->pNext;
+	while (temp!=poly)
+	{
+		if (temp->data.c != temp2->data.c || temp->data.Exp != temp2->data.Exp)
+			return 0;
+		temp = temp->pNext;
+		temp2 = temp2->pNext;
+	}
+	return (temp == poly && temp2 == a.poly);
+}
+
+bool polynom::operator!=( polynom & a)
+{
+	return (!(*this == a));
+}
+
 double polynom::Calculate()
 {
 	vector <double> Values;
@@ -501,6 +520,13 @@ polynom::~polynom()
 	delete poly;
 }
 
+void polynom::setsize(int c)
+{
+	if (c > 1000 || c < 1)
+		throw 1;
+	MaxSize = c;
+}
+
 ostream & operator<<(ostream & os,const polynom &h)
 {
 	polynom z(h);
@@ -570,32 +596,55 @@ polynom::Monom::Monom(string & a,int max):Monom()
 		{
 			if (!WereAbr)
 			{	
-					if (tmp.size() > 1 )
-						c = atoi(tmp.c_str());
+				if (tmp.size() > 1)
+				{
+					c = atof(tmp.c_str());
+					if (c == 0)
+					{
+						bool IsPoint=0;
+						for (size_t k = 0; k < tmp.size(); k++)
+						{
+							if (tmp[k] == '.')
+								if (IsPoint == 1)
+									throw 1;
+								else IsPoint = 1;
+						}
+					}
+				}
 					else
 					{
 						if (tmp == "+" || tmp == "-")
 						{
 							tmp.push_back('1');
-							c = atoi(tmp.c_str());
+							c = atof(tmp.c_str());
 						}
 						else
 							if (tmp.size() == 0)
 								c = 1;
 							else
-							c = atoi(tmp.c_str());
+							{
+								c = atof(tmp.c_str());
+								if (c == 0)
+									if (tmp != "0")
+										throw 1;
+							}
 					}
 					tmp.clear();
-		
 				WereAbr = 1;
 			}
 			else
 			{
+				auto ot = tmp.find('.');
+				if (ot != string::npos)
+					throw 1;
+				int c = atoi(tmp.c_str());
+				if (c >= max)
+					throw 1;
 				if (tmp.size()==0)
 				Exp += pow(max, 122 - PreAbr);
 				else
 				{
-					Exp += atoi(tmp.c_str())*pow(max, 122 - PreAbr);
+					Exp += c*pow(max, 122 - PreAbr);
 					tmp.clear();
 				}
 			}
