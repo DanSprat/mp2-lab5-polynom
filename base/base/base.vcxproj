@@ -152,7 +152,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="polynom.h" />
-    <ClInclude Include="TList.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
